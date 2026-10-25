@@ -4,15 +4,24 @@
 // Revision 1.25
 //
 // This work is licensed under the MIT License. See included LICENSE.TXT.
-
 #include <time.h>
 #include <sys/timeb.h>
 #include <memory.h>
 
+// --- Windows (MSYS2 UCRT) 및 Linux 공용 호환 헤더 설정 ---
+#include <fcntl.h>
+
 #ifndef _WIN32
 #include <unistd.h>
-#include <fcntl.h>
+#else
+#include <io.h>    // Windows에서 open, read, write, lseek 지원
+#include <conio.h> // Windows에서 kbhit, getch 지원
+#define open _open
+#define lseek _lseek
+#define read _read
+#define write _write
 #endif
+// --------------------------------------------------
 
 #ifndef NO_GRAPHICS
 #include "SDL.h"

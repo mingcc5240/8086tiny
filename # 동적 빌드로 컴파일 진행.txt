@@ -1,0 +1,6 @@
+# 동적 빌드로 컴파일 진행
+gcc 8086tiny.c `sdl-config --cflags --libs` -O3 -fsigned-char -std=c99 -o 8086tiny.exe
+
+# 실행하기 전, SDL2의 렌더러 드라이버를 직접 지정 (MSYS2 멈춤 현상 해결용)
+export SDL_RENDER_DRIVER=software
+./8086tiny.exe bios fd.img
